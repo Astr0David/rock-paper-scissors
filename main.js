@@ -1,50 +1,90 @@
 let computerselection;
 let playerselection;
+let thescore = 0;
+let pcscore = 0;
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+const text = document.getElementById("textdisplay");
+const text2 = document.getElementById("textdisplay2");
+const h1Elements = document.querySelectorAll("#scoredisplay h1");
+const result = document.getElementById("resultdisplay");
 
-function getComputerChoice () {
-    const choices = ["rock","paper","scissors"]; 
-    num = Math.floor(Math.random()*3)
-    console.log("Computer chose " + choices[num])
-    computerselection = choices[num]
+rock.addEventListener("click", function () {
+  text.innerHTML = "Player chose rock.";
+  playerselection = "rock";
+  getComputerChoice();
+  keepScore(playerselection, computerselection);
+  showScore(thescore, pcscore);
+  game(pcscore, thescore);
+});
+
+paper.addEventListener("click", function () {
+  text.innerHTML = "Player chose paper.";
+  playerselection = "paper";
+  getComputerChoice();
+  keepScore(playerselection, computerselection);
+  showScore(thescore, pcscore);
+  game(pcscore, thescore);
+});
+
+scissors.addEventListener("click", function () {
+  text.innerHTML = "Player chose scissors.";
+  playerselection = "scissors";
+  getComputerChoice();
+  keepScore(playerselection, computerselection);
+  showScore(thescore, pcscore);
+  game(pcscore, thescore);
+});
+
+function getComputerChoice() {
+  const choices = ["rock", "paper", "scissors"];
+  num = Math.floor(Math.random() * 3);
+  text2.innerHTML = "Computer chose " + choices[num] + ".";
+  computerselection = choices[num];
 }
 
-function getPlayerChoice () {
-    playerselection = prompt("Rock, Paper or Scissors?")
-    console.log("Player chose " + playerselection)
+function keepScore(playerselection, computerselection) {
+  console.log(computerselection);
+  if (playerselection == computerselection) {
+    result.innerHTML = "You both went " + computerselection;
+  } else if (playerselection == "rock" && computerselection == "paper") {
+    result.innerHTML = "You lose! Paper beats rock...";
+    pcscore += 1;
+  } else if (playerselection == "paper" && computerselection == "scissors") {
+    result.innerHTML = "You lose! Scissors beat paper...";
+    pcscore += 1;
+  } else if (playerselection == "scissors" && computerselection == "rock") {
+    result.innerHTML = "You lose! Rock beats scissors...";
+    pcscore += 1;
+  } else if (playerselection == "rock" && computerselection == "scissorsr") {
+    result.innerHTML = "You win! Rock beats scissors...";
+    thescore += 1;
+  } else if (playerselection == "paper" && computerselection == "rock") {
+    result.innerHTML = "You win! Paper beats rock...";
+    thescore += 1;
+  } else if (playerselection == "scissors" && computerselection == "paper") {
+    result.innerHTML = "You win! Scissors beat paper...";
+    thescore += 1;
+  }
 }
 
-function rockPaperScissors (playerselection, computerselection){
-    let playersel = playerselection.toLowerCase()
-    if (playersel === computerselection) {
-        console.log("You both went " + computerselection)
-    }
-    if (playersel == "rock" && computerselection == "paper") {
-        console.log("You lose! Paper beats rock...")
-    }
-    if (playersel == "paper" && computerselection == "scissors") {
-        console.log("You lose! Scissors beat paper...")
-    }
-    if (playersel == "scissors" && computerselection == "rock") {
-        console.log("You lose! Rock beats scissors...")
-    }
-    if (playersel == "rock" && computerselection == "scissorsr") {
-        console.log("You win! Rock beats scissors...")
-    }
-    if (playersel == "paper" && computerselection == "rock") {
-        console.log("You win! Paper beats rock...")
-    }
-    if (playersel == "scissors" && computerselection == "paper") {
-        console.log("You win! Scissors beat paper...")
-    }
+function showScore(thescore, pcscore) {
+  h1Elements[0].textContent = "User score: " + thescore;
+  h1Elements[1].textContent = "Computer score: " + pcscore;
 }
 
-
-function game () {
-    for (let i = 0; i < 5; i++) {
-        getComputerChoice();
-        getPlayerChoice();
-        rockPaperScissors(playerselection,computerselection)
-    }
+function game(pcscore, thescore) {
+  if (pcscore == 5) {
+    h1Elements[1].textContent = "Computer wins!";
+    rock.disabled = true;
+    paper.disabled = true;
+    scissors.disabled = true;
+  }
+  if (thescore == 5) {
+    h1Elements[0].textContent = "User wins!";
+    rock.disabled = true;
+    paper.disabled = true;
+    scissors.disabled = true;
+  }
 }
-
-game()
