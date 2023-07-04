@@ -57,7 +57,7 @@ function keepScore(playerselection, computerselection) {
   } else if (playerselection == "scissors" && computerselection == "rock") {
     result.innerHTML = "You lose! Rock beats scissors...";
     pcscore += 1;
-  } else if (playerselection == "rock" && computerselection == "scissorsr") {
+  } else if (playerselection == "rock" && computerselection == "scissors") {
     result.innerHTML = "You win! Rock beats scissors...";
     thescore += 1;
   } else if (playerselection == "paper" && computerselection == "rock") {
